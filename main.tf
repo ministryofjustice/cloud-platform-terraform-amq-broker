@@ -18,6 +18,7 @@ locals {
   identifier        = "cloud-platform-${random_id.id.hex}"
   mq_admin_user     = "cp${random_string.username.result}"
   mq_admin_password = "${random_string.password.result}"
+  subnets           = "${var.deployment_mode == "ACTIVE_STANDBY_MULTI_AZ" ? 2 : 1 }"
 }
 
 resource "random_string" "username" {
@@ -59,10 +60,7 @@ resource "aws_mq_broker" "broker" {
   publicly_accessible = false
   security_groups     = ["${aws_security_group.broker-sg.id}"]
 
-  subnet_ids = [
-    "${data.terraform_remote_state.cluster.internal_subnets_ids.0}",
-    "${var.deployment_mode == "ACTIVE_STANDBY_MULTI_AZ" ? data.terraform_remote_state.cluster.internal_subnets_ids.1 : "" }",
-  ]
+  subnet_ids = ["${slice(data.terraform_remote_state.cluster.internal_subnets_ids, 0, local.subnets)}"]
 
   user = [{
     username       = "${local.mq_admin_user}"
