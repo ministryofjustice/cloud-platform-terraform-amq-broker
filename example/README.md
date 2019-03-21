@@ -4,7 +4,7 @@ The configuration in this directory creates an example AWS MQ broker with most d
 
 This example is designed to be used in the [cloud-platform-environments](https://github.com/ministryofjustice/cloud-platform-environments/) repository.
 
-The output will be in a kubernetes `Secret`, which includes the values `primary_endpoint`, `database_name`, `username` and `password`.
+The output will be in a kubernetes `Secret`, which includes the values `primary_endpoint`, `username` and `password`.
 
 ## Usage
 
