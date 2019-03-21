@@ -16,6 +16,8 @@ resource "random_id" "id" {
 
 locals {
   identifier = "cloud-platform-${random_id.id.hex}"
+  mq_admin_user           = "cp${random_string.username.result}"
+  mq_admin_password       = "${random_string.password.result}"
 }
 
 resource "random_string" "username" {
@@ -60,12 +62,13 @@ resource "aws_mq_broker" "broker" {
     "${data.terraform_remote_state.cluster.internal_subnets_ids.0}",
     "${var.deployment_mode == "ACTIVE_STANDBY_MULTI_AZ" ? data.terraform_remote_state.cluster.internal_subnets_ids.1 : "" }"
   ]
-  user {
-    username = "cp${random_string.username.result}"
-    password = "${random_string.password.result}"
+
+  user= [{
+    username = "${local.mq_admin_user}"
+    password = "${local.mq_admin_password}"
     groups         = ["admin"]
     console_access  = false
-  }
+  }]
 
   auto_minor_version_upgrade = false
 
