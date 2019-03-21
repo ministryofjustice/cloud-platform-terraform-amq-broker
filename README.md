@@ -30,12 +30,12 @@ module "example_team_broker" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| cluster_name | The name of the cluster (eg.: cloud-platform-live-0) | string |  | yes |
-| cluster_state_bucket | The name of the S3 bucket holding the terraform state for the cluster | string | | yes |
+| cluster_name | The name of the cluster (eg.: cloud-platform-live-0) | string | - | yes |
+| cluster_state_bucket | The name of the S3 bucket holding the terraform state for the cluster | string | - | yes |
 | engine_type | Engine used e.g. ActiveMQ, STOMP | string | ActiveMQ | |
-| engine_version | The engine version to use e.g. 5.15.6 | 5.15.6 | |
-| host_instance_type | The broker's instance type. e.g. mq.t2.micro or mq.m5.large | mq.t2.micro | |
-| deployment_mode | The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ | SINGLE_INSTANCE | |
+| engine_version | The engine version to use e.g. 5.15.6 | semver | 5.15.6 | |
+| host_instance_type | The broker's instance type. e.g. mq.t2.micro or mq.m5.large | string | mq.t2.micro | |
+| deployment_mode | The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ | string | SINGLE_INSTANCE | |
 
 ### Tags
 

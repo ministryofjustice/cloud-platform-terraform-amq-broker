@@ -22,9 +22,9 @@ resource "kubernetes_secret" "example_team_broker" {
   }
 
   data {
-    primary_amqp_ssl_endpoint = "${module.example_team_broker.primary_amqp_ssl_endpoint}"
+    primary_amqp_ssl_endpoint  = "${module.example_team_broker.primary_amqp_ssl_endpoint}"
     primary_stomp_ssl_endpoint = "${module.example_team_broker.primary_stomp_ssl_endpoint}"
-    username = "${module.example_team_broker.username}"
-    password = "${module.example_team_broker.password}"        
+    username                   = "${module.example_team_broker.username}"
+    password                   = "${module.example_team_broker.password}"
   }
 }
