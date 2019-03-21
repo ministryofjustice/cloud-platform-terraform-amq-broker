@@ -15,9 +15,9 @@ resource "random_id" "id" {
 }
 
 locals {
-  identifier = "cloud-platform-${random_id.id.hex}"
-  mq_admin_user           = "cp${random_string.username.result}"
-  mq_admin_password       = "${random_string.password.result}"
+  identifier        = "cloud-platform-${random_id.id.hex}"
+  mq_admin_user     = "cp${random_string.username.result}"
+  mq_admin_password = "${random_string.password.result}"
 }
 
 resource "random_string" "username" {
@@ -51,23 +51,24 @@ resource "aws_security_group" "broker-sg" {
 }
 
 resource "aws_mq_broker" "broker" {
-  broker_name = "${local.identifier}"
-  engine_type        = "${var.engine_type}"
-  engine_version     = "${var.engine_version}"
-  deployment_mode            = "${var.deployment_mode}"
-  host_instance_type = "${var.host_instance_type}"
+  broker_name         = "${local.identifier}"
+  engine_type         = "${var.engine_type}"
+  engine_version      = "${var.engine_version}"
+  deployment_mode     = "${var.deployment_mode}"
+  host_instance_type  = "${var.host_instance_type}"
   publicly_accessible = false
-  security_groups    = ["${aws_security_group.broker-sg.id}"]
+  security_groups     = ["${aws_security_group.broker-sg.id}"]
+
   subnet_ids = [
     "${data.terraform_remote_state.cluster.internal_subnets_ids.0}",
-    "${var.deployment_mode == "ACTIVE_STANDBY_MULTI_AZ" ? data.terraform_remote_state.cluster.internal_subnets_ids.1 : "" }"
+    "${var.deployment_mode == "ACTIVE_STANDBY_MULTI_AZ" ? data.terraform_remote_state.cluster.internal_subnets_ids.1 : "" }",
   ]
 
-  user= [{
-    username = "${local.mq_admin_user}"
-    password = "${local.mq_admin_password}"
+  user = [{
+    username       = "${local.mq_admin_user}"
+    password       = "${local.mq_admin_password}"
     groups         = ["admin"]
-    console_access  = false
+    console_access = false
   }]
 
   auto_minor_version_upgrade = false
@@ -81,7 +82,7 @@ resource "aws_mq_broker" "broker" {
     day_of_week = "SUNDAY"
     time_of_day = "03:00"
     time_zone   = "UTC"
-  }  
+  }
 
   tags {
     business-unit          = "${var.business-unit}"
