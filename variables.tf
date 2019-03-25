@@ -44,3 +44,8 @@ variable "deployment_mode" {
   description = "The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ"
   default     = "SINGLE_INSTANCE"
 }
+
+variable "aws_region" {
+  description = "Region into which the resource will be created."
+  default     = "eu-west-2"
+}

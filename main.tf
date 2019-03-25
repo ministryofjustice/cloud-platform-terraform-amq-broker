@@ -1,13 +1,18 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
-data "terraform_remote_state" "cluster" {
-  backend = "s3"
+# data "terraform_remote_state" "cluster" {
+#   backend = "s3"
 
-  config {
-    bucket = "${var.cluster_state_bucket}"
-    key    = "env:/${var.cluster_name}/terraform.tfstate"
-  }
+#   config {
+#     bucket = "${var.cluster_state_bucket}"
+#     key    = "env:/${var.cluster_name}/terraform.tfstate"
+#   }
+# }
+
+provider "aws" {
+  alias  = "destination"
+  region = "${var.aws_region}"
 }
 
 resource "random_id" "id" {
@@ -52,6 +57,7 @@ resource "aws_security_group" "broker-sg" {
 }
 
 resource "aws_mq_broker" "broker" {
+  provider            = "aws.destination"
   broker_name         = "${local.identifier}"
   engine_type         = "${var.engine_type}"
   engine_version      = "${var.engine_version}"

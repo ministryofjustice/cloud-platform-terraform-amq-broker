@@ -12,18 +12,21 @@ module "example_team_broker" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "example-team@digital.justice.gov.uk"
+  aws_region             = "eu-west-2"
 }
 
-resource "kubernetes_secret" "example_team_broker" {
-  metadata {
-    name      = "example-team-broker-output"
-    namespace = "my-namespace"
-  }
+# resource "kubernetes_secret" "example_team_broker" {
+#   metadata {
+#     name      = "example-team-broker-output"
+#     namespace = "my-namespace"
+#   }
 
-  data {
-    primary_amqp_ssl_endpoint  = "${module.example_team_broker.primary_amqp_ssl_endpoint}"
-    primary_stomp_ssl_endpoint = "${module.example_team_broker.primary_stomp_ssl_endpoint}"
-    username                   = "${module.example_team_broker.username}"
-    password                   = "${module.example_team_broker.password}"
-  }
-}
+
+#   data {
+#     primary_amqp_ssl_endpoint  = "${module.example_team_broker.primary_amqp_ssl_endpoint}"
+#     primary_stomp_ssl_endpoint = "${module.example_team_broker.primary_stomp_ssl_endpoint}"
+#     username                   = "${module.example_team_broker.username}"
+#     password                   = "${module.example_team_broker.password}"
+#   }
+# }
+
