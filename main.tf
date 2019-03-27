@@ -3,7 +3,7 @@ data "aws_region" "current" {}
 
 
 provider "aws" {
-  alias  = "destination"
+  alias  = "london"
   region = "${var.aws_region}"
 }
 
@@ -58,7 +58,7 @@ resource "aws_security_group" "broker-sg" {
 }
 
 resource "aws_mq_broker" "broker" {
-  provider            = "aws.destination"
+  provider            = "aws.london"
   broker_name         = "${local.identifier}"
   engine_type         = "${var.engine_type}"
   engine_version      = "${var.engine_version}"
