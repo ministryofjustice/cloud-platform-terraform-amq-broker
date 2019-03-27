@@ -1,20 +1,21 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
-data "terraform_remote_state" "cluster" {
-  backend = "s3"
-
-  config {
-    bucket = "${var.cluster_state_bucket}"
-    key    = "env:/${var.cluster_name}/terraform.tfstate"
-  }
-}
 
 provider "aws" {
   alias  = "destination"
   region = "${var.aws_region}"
 }
 
+data "terraform_remote_state" "cluster" {
+  backend = "s3"
+
+  config {
+    bucket = "${var.cluster_state_bucket}"
+    region = "eu-west-1"
+    key    = "${var.cluster_state_key}"
+  }
+}
 resource "random_id" "id" {
   byte_length = 8
 }
