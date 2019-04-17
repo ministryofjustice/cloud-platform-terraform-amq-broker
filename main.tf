@@ -12,7 +12,7 @@ data "terraform_remote_state" "cluster" {
   config {
     bucket = "${var.cluster_state_bucket}"
     region = "eu-west-1"
-    key    = "${var.cluster_state_key}"
+    key    = "cloud-platform/${var.cluster_name}/terraform.tfstate"
   }
 }
 

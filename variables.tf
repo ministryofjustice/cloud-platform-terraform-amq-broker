@@ -8,10 +8,6 @@ variable "cluster_state_bucket" {
   default     = "cloud-platform-terraform-state"
 }
 
-variable "cluster_state_key" {
-  description = "The path to the tfstate in S3, no default value"
-}
-
 variable "team_name" {}
 
 variable "application" {}
