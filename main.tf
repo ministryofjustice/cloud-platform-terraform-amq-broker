@@ -1,12 +1,18 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
+provider "aws" {
+  alias  = "london"
+  region = "${var.aws_region}"
+}
+
 data "terraform_remote_state" "cluster" {
   backend = "s3"
 
   config {
     bucket = "${var.cluster_state_bucket}"
-    key    = "env:/${var.cluster_name}/terraform.tfstate"
+    region = "eu-west-1"
+    key    = "${var.cluster_state_key}"
   }
 }
 
@@ -52,6 +58,7 @@ resource "aws_security_group" "broker-sg" {
 }
 
 resource "aws_mq_broker" "broker" {
+  provider            = "aws.london"
   broker_name         = "${local.identifier}"
   engine_type         = "${var.engine_type}"
   engine_version      = "${var.engine_version}"

@@ -1,9 +1,15 @@
 variable "cluster_name" {
   description = "The name of the cluster (eg.: cloud-platform-live-0)"
+  default     = "live-1"
 }
 
 variable "cluster_state_bucket" {
   description = "The name of the S3 bucket holding the terraform state for the cluster"
+  default     = "cloud-platform-terraform-state"
+}
+
+variable "cluster_state_key" {
+  description = "The path to the tfstate in S3, no default value"
 }
 
 variable "team_name" {}
@@ -43,4 +49,9 @@ variable "host_instance_type" {
 variable "deployment_mode" {
   description = "The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ"
   default     = "SINGLE_INSTANCE"
+}
+
+variable "aws_region" {
+  description = "Region into which the resource will be created."
+  default     = "eu-west-2"
 }

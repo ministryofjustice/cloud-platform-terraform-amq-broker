@@ -6,6 +6,8 @@ The broker instance that is created uses a randomly generated name to avoid any 
 
 The module can deploy either a single or active/standby multi-AZ instance.
 
+From version 2.0, the resource will by default be created in the London aws region, instead of the usual Irish one.
+
 ## Usage
 
 ```hcl
@@ -22,6 +24,7 @@ module "example_team_broker" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "example-team@digital.justice.gov.uk"
+  aws_region             = "eu-west-2"
 }
 
 ```
@@ -36,6 +39,8 @@ module "example_team_broker" {
 | engine_version | The engine version to use e.g. 5.15.6 | semver | 5.15.6 | |
 | host_instance_type | The broker's instance type. e.g. mq.t2.micro or mq.m5.large | string | mq.t2.micro | |
 | deployment_mode | The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ | string | SINGLE_INSTANCE | |
+| aws_region | region into which the resource will be created | string | eu-west-2 | no 
+
 
 ### Tags
 
