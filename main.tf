@@ -1,7 +1,6 @@
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
-
 provider "aws" {
   alias  = "london"
   region = "${var.aws_region}"
@@ -16,6 +15,7 @@ data "terraform_remote_state" "cluster" {
     key    = "${var.cluster_state_key}"
   }
 }
+
 resource "random_id" "id" {
   byte_length = 8
 }

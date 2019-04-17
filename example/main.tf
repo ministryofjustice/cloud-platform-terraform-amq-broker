@@ -5,9 +5,10 @@
  *
  */
 
- provider "aws" {
-   region= "eu-west-2"
- }
+provider "aws" {
+  region = "eu-west-2"
+}
+
 module "example_team_broker" {
   source                 = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=2.0"
   team_name              = "example-team"
