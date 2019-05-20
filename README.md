@@ -24,7 +24,11 @@ module "example_team_broker" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "example-team@digital.justice.gov.uk"
-  aws_region             = "eu-west-2"
+  
+  providers = {
+    # This can be either "aws.london" or "aws.ireland:
+    aws = "aws.london"
+  }
 }
 
 ```
