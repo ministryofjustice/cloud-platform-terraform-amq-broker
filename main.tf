@@ -52,6 +52,24 @@ resource "aws_security_group" "broker-sg" {
   }
 }
 
+resource "aws_mq_configuration" "mq_config" {
+  name           = "config-${local.identifier}"
+  description    = "MQ Config for config-${local.identifier}"
+  engine_type    = "${var.engine_type}"
+  engine_version = "${var.engine_version}"
+
+  data = <<DATA
+  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  <broker xmlns ="http://activemq.apache.org/schema/core">
+  <plugins>
+  <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
+  <statisticsBrokerPlugin/>
+  <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
+  </plugins>
+  </broker>
+  DATA
+}
+
 resource "aws_mq_broker" "broker" {
   broker_name         = "${local.identifier}"
   engine_type         = "${var.engine_type}"
@@ -60,6 +78,10 @@ resource "aws_mq_broker" "broker" {
   host_instance_type  = "${var.host_instance_type}"
   publicly_accessible = false
   security_groups     = ["${aws_security_group.broker-sg.id}"]
+
+  configuration {
+    id = "${aws_mq_configuration.mq_config.id}"
+  }
 
   subnet_ids = ["${slice(data.terraform_remote_state.cluster.internal_subnets_ids, 0, local.subnets)}"]
 
