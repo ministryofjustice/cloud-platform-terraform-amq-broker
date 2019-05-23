@@ -1,5 +1,7 @@
 # cloud-platform-terraform-amq-broker
 
+[![Releases](https://img.shields.io/github/release/ministryofjustice/cloud-platform-terraform-amq-broker.svg)](https://github.com/ministryofjustice/cloud-platform-terraform-amq-broker/releases)
+
 AWS MQ broker instance and credentials for the Cloud Platform
 
 The broker instance that is created uses a randomly generated name to avoid any conflicts. Admin login is also a random user/password pair.
@@ -24,7 +26,7 @@ module "example_team_broker" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "example-team@digital.justice.gov.uk"
-  
+
   providers = {
     # This can be either "aws.london" or "aws.ireland:
     aws = "aws.london"
@@ -43,7 +45,7 @@ module "example_team_broker" {
 | engine_version | The engine version to use e.g. 5.15.6 | semver | 5.15.6 | |
 | host_instance_type | The broker's instance type. e.g. mq.t2.micro or mq.m5.large | string | mq.t2.micro | |
 | deployment_mode | The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ | string | SINGLE_INSTANCE | |
-| aws_region | region into which the resource will be created | string | eu-west-2 | no 
+| aws_region | region into which the resource will be created | string | eu-west-2 | no
 
 
 ### Tags
