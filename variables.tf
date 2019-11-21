@@ -8,11 +8,14 @@ variable "cluster_state_bucket" {
   default     = "cloud-platform-terraform-state"
 }
 
-variable "team_name" {}
+variable "team_name" {
+}
 
-variable "application" {}
+variable "application" {
+}
 
-variable "environment-name" {}
+variable "environment-name" {
+}
 
 variable "is-production" {
   default = "false"
@@ -51,3 +54,4 @@ variable "aws_region" {
   description = "Region into which the resource will be created."
   default     = "eu-west-2"
 }
+
