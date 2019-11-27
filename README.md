@@ -16,10 +16,6 @@ From version 2.0, the resource will by default be created in the London aws regi
 module "example_team_broker" {
   source = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=version"
 
-    // The first two inputs are provided by the pipeline for cloud-platform. See the example for more detail.
-
-  cluster_name           = "cloud-platform-live-0"
-  cluster_state_bucket   = "live-0-state-bucket"
   team_name              = "example-team"
   business-unit          = "example-bu"
   application            = "exampleapp"
@@ -29,7 +25,7 @@ module "example_team_broker" {
 
   providers = {
     # This can be either "aws.london" or "aws.ireland:
-    aws = "aws.london"
+     aws = aws.london
   }
 }
 
