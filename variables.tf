@@ -26,6 +26,9 @@ variable "business-unit" {
   default     = "mojdigital"
 }
 
+variable "namespace" {
+}
+
 variable "infrastructure-support" {
   description = "The team responsible for managing the infrastructure. Should be of the form <team-name> (<team-email>)"
 }
