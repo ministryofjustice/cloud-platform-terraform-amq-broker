@@ -13,6 +13,7 @@ module "example_team_broker" {
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "example-team@digital.justice.gov.uk"
+  namespace              = var.namespace
 
   providers = {
     # Can be either 'aws.london' or 'aws.ireland'

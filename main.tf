@@ -97,6 +97,7 @@ resource "aws_mq_broker" "broker" {
     environment-name       = var.environment-name
     owner                  = var.team_name
     infrastructure-support = var.infrastructure-support
+    namespace              = var.namespace
   }
 }
 
