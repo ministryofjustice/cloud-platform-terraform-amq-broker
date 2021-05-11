@@ -6,14 +6,14 @@
  */
 
 module "example_team_broker" {
-  source                 = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=3.0"
+  source                 = "github.com/ministryofjustice/cloud-platform-terraform-amq-broker?ref=3.1"
   team_name              = "example-team"
   business-unit          = "example-bu"
   application            = "exampleapp"
   is-production          = "false"
   environment-name       = "development"
   infrastructure-support = "example-team@digital.justice.gov.uk"
-  namespace              = var.namespace
+  namespace              = "test"
 
   providers = {
     # Can be either 'aws.london' or 'aws.ireland'

@@ -1,17 +1,24 @@
-data "aws_caller_identity" "current" {
-}
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
 
-data "aws_region" "current" {
-}
-
-data "terraform_remote_state" "cluster" {
-  backend = "s3"
-
-  config = {
-    bucket = var.cluster_state_bucket
-    region = "eu-west-1"
-    key    = "cloud-platform/${var.cluster_name}/terraform.tfstate"
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = [var.cluster_name]
   }
+}
+
+data "aws_subnet_ids" "private" {
+  vpc_id = data.aws_vpc.selected.id
+
+  tags = {
+    SubnetType = "Private"
+  }
+}
+
+data "aws_subnet" "private" {
+  for_each = data.aws_subnet_ids.private.ids
+  id       = each.value
 }
 
 resource "random_id" "id" {
@@ -38,20 +45,20 @@ resource "random_string" "password" {
 resource "aws_security_group" "broker-sg" {
   name        = local.identifier
   description = "Allow all inbound traffic"
-  vpc_id      = data.terraform_remote_state.cluster.outputs.vpc_id
+  vpc_id      = data.aws_vpc.selected.id
 
   ingress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_blocks = data.terraform_remote_state.cluster.outputs.internal_subnets
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [for s in data.aws_subnet.private : s.cidr_block]
   }
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    cidr_blocks = data.terraform_remote_state.cluster.outputs.internal_subnets
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [for s in data.aws_subnet.private : s.cidr_block]
   }
 }
 
@@ -64,11 +71,7 @@ resource "aws_mq_broker" "broker" {
   publicly_accessible = false
   security_groups     = [aws_security_group.broker-sg.id]
 
-  subnet_ids = slice(
-    data.terraform_remote_state.cluster.outputs.internal_subnets_ids,
-    0,
-    local.subnets,
-  )
+  subnet_ids = data.aws_subnet_ids.private.ids
 
   user {
     username       = local.mq_admin_user
