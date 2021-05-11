@@ -31,9 +31,9 @@ module "example_team_broker" {
 
 ```
 
-<!-- BEGIN_TF_DOCS -->
+<!--- BEGIN_TF_DOCS --->
 
-<!-- END_TF_DOCS -->
+<!--- END_TF_DOCS --->
 
 ## Access outside the cluster
 
