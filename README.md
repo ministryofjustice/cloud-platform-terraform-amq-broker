@@ -32,6 +32,63 @@ module "example_team_broker" {
 ```
 
 <!--- BEGIN_TF_DOCS --->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.13 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+| random | n/a |
+
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [aws_caller_identity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) |
+| [aws_mq_broker](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/mq_broker) |
+| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) |
+| [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
+| [aws_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) |
+| [aws_subnet_ids](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids) |
+| [aws_vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) |
+| [random_id](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) |
+| [random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| application | n/a | `any` | n/a | yes |
+| aws\_region | Region into which the resource will be created. | `string` | `"eu-west-2"` | no |
+| business-unit | Area of the MOJ responsible for the service | `string` | `"mojdigital"` | no |
+| cluster\_name | The name of the cluster (eg.: cloud-platform-live-0) | `string` | `"live-1"` | no |
+| deployment\_mode | The deployment mode of the broker. Supported: SINGLE\_INSTANCE and ACTIVE\_STANDBY\_MULTI\_AZ | `string` | `"SINGLE_INSTANCE"` | no |
+| engine\_type | Engine used e.g. ActiveMQ, STOMP | `string` | `"ActiveMQ"` | no |
+| engine\_version | The engine version to use e.g. 5.15.8 | `string` | `"5.15.6"` | no |
+| environment-name | n/a | `any` | n/a | yes |
+| host\_instance\_type | The broker's instance type. e.g. mq.t2.micro or mq.m5.large | `string` | `"mq.t2.micro"` | no |
+| infrastructure-support | The team responsible for managing the infrastructure. Should be of the form <team-name> (<team-email>) | `any` | n/a | yes |
+| is-production | n/a | `string` | `"false"` | no |
+| namespace | n/a | `any` | n/a | yes |
+| team\_name | n/a | `any` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| password | broker password |
+| primary\_amqp\_ssl\_endpoint | AmazonMQ primary AMQP+SSL endpoint |
+| primary\_stomp\_ssl\_endpoint | AmazonMQ primary STOMP+SSL endpoint |
+| username | broker username |
 
 <!--- END_TF_DOCS --->
 
