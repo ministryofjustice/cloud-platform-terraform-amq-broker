@@ -3,14 +3,10 @@ variable "cluster_name" {
   default     = "live-1"
 }
 
-variable "team_name" {
-}
-
-variable "application" {
-}
-
-variable "environment-name" {
-}
+variable "team_name" {}
+variable "application" {}
+variable "environment-name" {}
+variable "namespace" {}
 
 variable "is-production" {
   default = "false"
@@ -19,9 +15,6 @@ variable "is-production" {
 variable "business-unit" {
   description = "Area of the MOJ responsible for the service"
   default     = "mojdigital"
-}
-
-variable "namespace" {
 }
 
 variable "infrastructure-support" {

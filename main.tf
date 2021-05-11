@@ -48,16 +48,16 @@ resource "aws_security_group" "broker-sg" {
   vpc_id      = data.aws_vpc.selected.id
 
   ingress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = [for s in data.aws_subnet.private : s.cidr_block]
   }
 
   egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = [for s in data.aws_subnet.private : s.cidr_block]
   }
 }
