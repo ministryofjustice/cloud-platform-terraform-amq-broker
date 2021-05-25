@@ -70,7 +70,7 @@ No Modules.
 | application | n/a | `any` | n/a | yes |
 | aws\_region | Region into which the resource will be created. | `string` | `"eu-west-2"` | no |
 | business-unit | Area of the MOJ responsible for the service | `string` | `"mojdigital"` | no |
-| cluster\_name | The name of the cluster (eg.: cloud-platform-live-0) | `string` | `"live-1"` | no |
+| cluster\_name | The name of the cluster (eg.: cloud-platform-live-0) | `string` | `"live"` | no |
 | deployment\_mode | The deployment mode of the broker. Supported: SINGLE\_INSTANCE and ACTIVE\_STANDBY\_MULTI\_AZ | `string` | `"SINGLE_INSTANCE"` | no |
 | engine\_type | Engine used e.g. ActiveMQ, STOMP | `string` | `"ActiveMQ"` | no |
 | engine\_version | The engine version to use e.g. 5.15.8 | `string` | `"5.15.6"` | no |
