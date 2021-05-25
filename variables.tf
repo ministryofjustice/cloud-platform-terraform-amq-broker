@@ -1,6 +1,6 @@
 variable "cluster_name" {
   description = "The name of the cluster (eg.: cloud-platform-live-0)"
-  default     = "live-1"
+  default     = "live"
 }
 
 variable "team_name" {}
