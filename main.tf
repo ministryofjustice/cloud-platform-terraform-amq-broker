@@ -29,7 +29,7 @@ locals {
   identifier        = "cloud-platform-${random_id.id.hex}"
   mq_admin_user     = "cp${random_string.username.result}"
   mq_admin_password = random_string.password.result
-  subnets           = var.deployment_mode == "ACTIVE_STANDBY_MULTI_AZ" ? 2 : 1
+  subnets           = var.deployment_mode == "ACTIVE_STANDBY_MULTI_AZ" ? data.aws_subnet_ids.private.ids : [tolist(data.aws_subnet_ids.private.ids)[0]]
 }
 
 resource "random_string" "username" {
@@ -71,7 +71,7 @@ resource "aws_mq_broker" "broker" {
   publicly_accessible = false
   security_groups     = [aws_security_group.broker-sg.id]
 
-  subnet_ids = data.aws_subnet_ids.private.ids
+  subnet_ids = local.subnets
 
   user {
     username       = local.mq_admin_user
